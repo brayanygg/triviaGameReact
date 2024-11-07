@@ -20,6 +20,7 @@ function App() {
 
       {/* <section className={isMenuActive ? "inactive" : "question"}> */}
       <section className={"zona_preguntas"}>
+        <img src="./src/assets/ajedrez.png" alt="ajedrez" />
         <p className="pregunta">
           quetion: placeholder para preguntas que no va a ser definitivo
         </p>
