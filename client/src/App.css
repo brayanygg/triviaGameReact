@@ -71,3 +71,52 @@ button {
   flex: 1 1 40%;
   margin: 1% 2%;
 }
+
+.zona_final {
+  margin-bottom: 300px;
+}
+
+.zona_final p {
+  border-radius: 20px 20px 20px 0;
+  max-width: fit-content;
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 5px;
+}
+
+.terminado {
+  border: solid red;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.puntuaciones {
+  border: solid #fff;
+  font-size: 24px;
+}
+
+.max {
+  display: inline;
+  margin-right: 5px;
+}
+
+.boton_restaurar {
+  margin-bottom: 15px;
+  color: red;
+  font-size: 28px;
+  font-weight: 600;
+  border: transparent;
+  background-color: transparent;
+  transition: all 200ms ease;
+}
+
+.boton_restaurar:hover {
+  color: #900101;
+  font-weight: 500;
+}
+
+.volver {
+  display: block;
+  margin-top: 10px;
+  font-size: 20px;
+}
