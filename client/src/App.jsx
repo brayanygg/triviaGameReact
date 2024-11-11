@@ -42,7 +42,7 @@ function App() {
       <section className="inactive">
         <p className="terminado">Juego terminado</p>
         <p className="puntuaciones">Puntaje: 100</p>
-        <p className="max puntuaciones">Maximo puntaje: 600</p>
+        <p className="max puntuaciones">Maximo puntaje: 500</p>
         <button className="boton_restaurar">X</button>
         <button className="volver boton_general">Volver a inicio</button>
       </section>
