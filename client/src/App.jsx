@@ -25,15 +25,15 @@ function App() {
   return (
     <main className="screen">
       {/* <section className={isMenuActive ? "menu" : "inactive"}> */}
-      <section className={"inactive"}>
+      <section className={"menu"}>
         <h1>TriviaGame</h1>
         <button className="boton_general" onClick={menuOff}>
           Jugar!
         </button>
       </section>
       {/* <section className={isMenuActive ? "inactive" : "zona_preguntas"}> */}
-      <section className={"zona_preguntas"}>
-        <img src="./src/assets/ajedrez.png" alt="ajedrez" />
+      <section className={"inactive"}>
+        <img src="./src/assets/bd.png" alt="bd" />
         <p className="pregunta">
           quetion: placeholder para preguntas que no va a ser definitivo
         </p>
