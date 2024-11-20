@@ -4,7 +4,9 @@ import axios from "axios";
 
 function App() {
   const [isMenuActive, setIsMenuActive] = useState(true);
-  const [preguntas, setPreguntas] = useState([]);
+  const [preguntas, setPreguntas] = useState(null);
+  const [botonDesactivado, setBotonDesactivado] = useState(true);
+  const [count, setCount] = useState(0);
 
   const traerPreguntas = async () => {
     try {
@@ -15,7 +17,7 @@ function App() {
     }
   };
 
-  const aleatorizar = () => {
+  const aleatorizarPreguntas = () => {
     const toRandom = [...preguntas];
     toRandom.sort(() => Math.random() - 0.5);
     setPreguntas(toRandom);
@@ -30,44 +32,80 @@ function App() {
 
   useEffect(() => {
     traerPreguntas();
+    setTimeout(() => {
+      setBotonDesactivado(false);
+    }, 2000);
   }, []);
 
   const menuOff = () => {
     setIsMenuActive(false);
   };
 
-  let arr = [
-    <button onClick={aleatorizar} className="boton_general" key={1}>
-      hola
-    </button>,
-    <button className="boton_general" key={2}>
-      falsa1
-    </button>,
-    <button className="boton_general" key={3}>
-      falsa2
-    </button>,
-    <button className="boton_general" key={4}>
-      falsa3
-    </button>,
-  ];
+  const procesosPreguntas = () => {
+    aleatorizarPreguntas();
+    menuOff();
+  };
+
+  const revision = (respuesta, correcta) => {
+    respuesta == correcta ? console.log("correcta") : console.log("incorrecto");
+
+    if (preguntas.length - 1 > count) {
+      console.log("youre inside");
+
+      setCount(count + 1);
+    }
+    console.log(count);
+  };
 
   return (
     <main className="screen">
-      {/* <section className={isMenuActive ? "menu" : "inactive"}> */}
-      <section className={"inactive"}>
+      <section className={isMenuActive ? "menu" : "inactive"}>
         <h1>TriviaGame</h1>
-        <button className="boton_general" onClick={menuOff}>
-          Jugar!
-        </button>
+        {botonDesactivado ? (
+          <div>Cargando...</div>
+        ) : (
+          <button className="boton_general" onClick={procesosPreguntas}>
+            Jugar!
+          </button>
+        )}
       </section>
-      {/* <section className={isMenuActive ? "inactive" : "zona_preguntas"}> */}
-      <section className={"zona_preguntas"}>
-        <img src="./src/assets/ajedrez.png" alt="ajedrez" />
-        <p className="pregunta">
-          quetion: placeholder para preguntas que no va a ser definitivo
-        </p>
-        <div className="zona_respuestas">{arr.map((boton) => boton)}</div>
+
+      <section className={isMenuActive ? "inactive" : "zona_preguntas"}>
+        {console.log(count)}
+        {preguntas ? (
+          <div key={preguntas[count]._id}>
+            <img src={preguntas[count].imgRoute} alt={preguntas[count]._id} />
+            <p className="pregunta">{preguntas[count].pregunta}</p>
+            <div className="zona_respuestas">
+              {preguntas[count].respuestas.map((button, index) => (
+                <button
+                  onClick={() => revision(button, preguntas[count].verdadera)}
+                  className="boton_general"
+                  key={index}
+                >
+                  {button}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+        {/* {preguntas.map((pregunta) => (
+          <div key={pregunta._id}>
+            <img src={pregunta.imgRoute} alt={pregunta._id} />
+            <p className="pregunta">{pregunta.pregunta}</p>
+            <div className="zona_respuestas">
+              {pregunta.respuestas.map((button, index) => (
+                <button className="boton_general" key={index}>
+                  {button}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))} */}
       </section>
+
       <section className="inactive">
         <p className="terminado">Juego terminado</p>
         <p className="puntuaciones">Puntaje: 100</p>
