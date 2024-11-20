@@ -7,6 +7,8 @@ function App() {
   const [preguntas, setPreguntas] = useState(null);
   const [botonDesactivado, setBotonDesactivado] = useState(true);
   const [count, setCount] = useState(0);
+  const [vidas, setVidas] = useState(3);
+  const [puntaje, setPuntaje] = useState(0);
 
   const traerPreguntas = async () => {
     try {
@@ -38,16 +40,21 @@ function App() {
   }, []);
 
   const menuOff = () => {
+    aleatorizarPreguntas();
     setIsMenuActive(false);
   };
 
-  const procesosPreguntas = () => {
-    aleatorizarPreguntas();
-    menuOff();
-  };
-
   const revision = (respuesta, correcta) => {
-    respuesta == correcta ? console.log("correcta") : console.log("incorrecto");
+    if (vidas < 2) {
+      alert("has perdido");
+    }
+
+    if (respuesta == correcta) {
+      console.log("correcta");
+    } else {
+      console.log("incorrecto");
+      setVidas(vidas - 1);
+    }
 
     if (preguntas.length - 1 > count) {
       console.log("youre inside");
@@ -64,7 +71,7 @@ function App() {
         {botonDesactivado ? (
           <div>Cargando...</div>
         ) : (
-          <button className="boton_general" onClick={procesosPreguntas}>
+          <button className="boton_general" onClick={menuOff}>
             Jugar!
           </button>
         )}
@@ -91,19 +98,6 @@ function App() {
         ) : (
           ""
         )}
-        {/* {preguntas.map((pregunta) => (
-          <div key={pregunta._id}>
-            <img src={pregunta.imgRoute} alt={pregunta._id} />
-            <p className="pregunta">{pregunta.pregunta}</p>
-            <div className="zona_respuestas">
-              {pregunta.respuestas.map((button, index) => (
-                <button className="boton_general" key={index}>
-                  {button}
-                </button>
-              ))}
-            </div>
-          </div>
-        ))} */}
       </section>
 
       <section className="inactive">
