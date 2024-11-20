@@ -1,12 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+import axios from "axios";
 
 function App() {
   const [isMenuActive, setIsMenuActive] = useState(true);
+  const [preguntas, setPreguntas] = useState([]);
+
+  const traerPreguntas = async () => {
+    try {
+      const respuesta = await axios.get("http://localhost:5000/preguntas");
+      setPreguntas(respuesta.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const aleatorizar = () => {
+    const toRandom = [...preguntas];
+    toRandom.sort(() => Math.random() - 0.5);
+    setPreguntas(toRandom);
+
+    preguntas.forEach((pregunta) => {
+      pregunta.respuestas.sort(() => Math.random() - 0.5);
+      console.log(pregunta.respuestas);
+    });
+
+    console.log("fin");
+  };
+
+  useEffect(() => {
+    traerPreguntas();
+  }, []);
+
+  const menuOff = () => {
+    setIsMenuActive(false);
+  };
 
   let arr = [
-    <button className="boton_general" key={1}>
-      respuesta
+    <button onClick={aleatorizar} className="boton_general" key={1}>
+      hola
     </button>,
     <button className="boton_general" key={2}>
       falsa1
@@ -18,9 +50,6 @@ function App() {
       falsa3
     </button>,
   ];
-  const menuOff = () => {
-    setIsMenuActive(false);
-  };
 
   return (
     <main className="screen">
