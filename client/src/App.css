@@ -43,7 +43,7 @@ button {
 }
 
 .zona_preguntas {
-  margin-top: -300px;
+  margin-top: -200px;
   max-width: 400px;
   text-align: center;
 }
@@ -70,6 +70,16 @@ button {
 .zona_respuestas button {
   flex: 1 1 40%;
   margin: 1% 2%;
+}
+
+.zona_numeros {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 7px 0 7px;
+  font-size: 22px;
+  cursor: default;
+  user-select: none;
 }
 
 .zona_final {
